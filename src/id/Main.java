@@ -20,50 +20,43 @@ public class Main {
                 new Employee(8, "Sarah", "Miller"),
                 new Employee(9, "Christopher", "Anderson"),
                 new Employee(10, "Amanda", "Jones"),
-
-                new Employee(11, "Matthew", "Clark"),
-                new Employee(11, "Megan", "Turner"),
-                new Employee(13, "Kevin", "Hill"),
-                new Employee(14, "Olivia", "Perez"),
-                new Employee(15, "Daniel", "Evans"),
-                new Employee(15, "Sophia", "Garcia"),
-                new Employee(17, "Justin", "Moore"),
-                new Employee(18, "Lauren", "Bailey"),
-                new Employee(19, "Brandon", "Robinson"),
-                new Employee(20, "Alexis", "White")
+                null
         ));
 
-        List<Employee> listUniqueId = new LinkedList<>();
         List<Employee> listRepeatedId = new LinkedList<>();
-        Map<Long, List<Employee>> hashtable = new HashMap<>();
+        Map<Long, Employee> hashtable = new HashMap<>();
 
-        for(Employee employee : employees) {
+        Iterator<Employee> iteratorEmployees = employees.iterator();
+        while(iteratorEmployees.hasNext()) {
+
+            Employee employee = iteratorEmployees.next();
+
+            if(null == employee) {
+                iteratorEmployees.remove();
+                continue;
+            }
 
             final long id = employee.getId();
-            if(hashtable.containsKey(id)) {
 
-                hashtable.get(id).add(employee);
+            if (hashtable.containsKey(id)) {
+                listRepeatedId.add(employee);
+                iteratorEmployees.remove();
             } else {
-                hashtable.put(id, new ArrayList<Employee>(List.of(employee)));
+                hashtable.put(id, employee);
             }
         }
 
-        for(Map.Entry entry: hashtable.entrySet()) {
 
-            List<Employee> list = (List<Employee>)entry.getValue();
-
-            if(list.size() > 1) {
-
-                listRepeatedId.addAll(list);
-            } else {
-                listUniqueId.addAll(list);
-            }
-        }
-
-        System.out.println("list with unique IDs ");
-        System.out.println(listUniqueId);
-        System.out.println("list with repeated IDs ");
+        System.out.println("employees");
+        System.out.println(employees);
+        System.out.println("hashtable");
+        System.out.println(hashtable);
+        System.out.println("listRepeatedId");
         System.out.println(listRepeatedId);
+
+
+
+
 
     }
 }
