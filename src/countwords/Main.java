@@ -10,19 +10,20 @@ public class Main {
         Map<String, Integer> wordsWithCounts = getStringIntegerMap(text);
 
         System.out.println(wordsWithCounts);
+
+        System.out.println("word count: " + wordsWithCounts.size());
     }
 
     private static Map<String, Integer> getStringIntegerMap(String text) {
-        String[] words = text.replaceAll("[^A-Za-z0-9]", " ").split(" ");
+        String[] words = text.split("\\s+");
+
+        System.out.println(Arrays.toString(words));
 
         Map<String, Integer> wordsWithCounts = new TreeMap<>();
 
         for(String word: words) {
 
-            String wordFormatted = word.trim().toLowerCase();
-
-            if(word.isEmpty() || word.isBlank())
-                continue;
+            String wordFormatted = word.replaceAll("[.,\"']", "").toLowerCase();
 
             if(wordsWithCounts.containsKey(wordFormatted)) {
 
@@ -34,4 +35,28 @@ public class Main {
         }
         return wordsWithCounts;
     }
+
+//    private static Map<String, Integer> getStringIntegerMap(String text) {
+//        String[] words = text.replaceAll("[^A-Za-z0-9]", " ").split(" ");
+//
+//        Map<String, Integer> wordsWithCounts = new TreeMap<>();
+//
+//        for(String word: words) {
+//
+//            String wordFormatted = word.trim().toLowerCase();
+//
+//            if(word.isEmpty() || word.isBlank())
+//                continue;
+//
+//
+//            if(wordsWithCounts.containsKey(wordFormatted)) {
+//
+//                wordsWithCounts.put(wordFormatted, wordsWithCounts.get(wordFormatted) + 1);
+//            } else {
+//
+//                wordsWithCounts.put(wordFormatted, 1);
+//            }
+//        }
+//        return wordsWithCounts;
+//    }
 }
